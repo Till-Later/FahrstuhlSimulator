@@ -10,5 +10,24 @@ package fahrstuhlsimulator;
  * @author Lehmann
  */
 public class Aufenthalt {
+    public int etagennummer;
+    public long aufenthaltsdauer;
+
     
+    public int getEtagennummer(){
+        return etagennummer;
+    }
+    
+    public long getAufenthaltsdauer(){
+        return aufenthaltsdauer;
+    }
+    
+    public void setAufenthaltsdauer(long aufenthaltsdauer){
+        aufenthaltsdauer = this.aufenthaltsdauer;
+    }
+    
+    public void verkleinereAufenthaltsdauer(){
+        aufenthaltsdauer = aufenthaltsdauer - 1;
+        
+    }
 }

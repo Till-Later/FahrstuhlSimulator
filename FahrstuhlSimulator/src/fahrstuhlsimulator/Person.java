@@ -5,10 +5,37 @@
  */
 package fahrstuhlsimulator;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lehmann
  */
 public class Person {
-    
+   public int gewicht;
+   public ArrayList <Aufenthalt> aufenthalte = new ArrayList<>(); //das erste Element der Liste ist der aktuelle Aufenthalt
+   
+   public Person(int gewicht, ArrayList<Aufenthalt> aufenthalte){
+       this.gewicht = gewicht;
+       this.aufenthalte = aufenthalte;
+   }
+   
+   public int getGewicht(){
+       return gewicht;
+   }
+   
+   public Aufenthalt getAktuellenAufenthalt(){
+       return aufenthalte.get(0);
+   }
+   
+   public void setAktuellenAufenthalt(Aufenthalt aufenthalt){
+       aufenthalte.set(0,aufenthalt);
+   }
+   
+   public void loescheAktuellenAufenthalt(){
+       aufenthalte.remove(0);
+   }
+   
+   
+   
 }
