@@ -18,7 +18,7 @@ public class Gebaeude implements tick {
     private FahrstuhlController fahrstuhlcontroller;
     private float etagenhoehe;
     private int etagenZahl;
-    
+       
     public Gebaeude () {
        this.etagen = new ArrayList<Etage>();
        this.fahrstuhlcontroller = new FahrstuhlController();

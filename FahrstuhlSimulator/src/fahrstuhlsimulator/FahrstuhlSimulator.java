@@ -50,7 +50,7 @@ public class FahrstuhlSimulator {
     }
     
     public static void main(String[] args) {
-        // TODO code application logic here
+        gebaeude = new Gebaeude();
     }
     
 }
