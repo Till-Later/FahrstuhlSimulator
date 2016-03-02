@@ -5,10 +5,25 @@
  */
 package fahrstuhlsimulator;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lehmann
  */
-public class Etage implements tick {
+public class Etage implements tick
+{
+    private int etagenNummer;
+    private ArrayList<Person> etagenPersonen;
+    private ArrayList<Person> wartezimmerPersonen;
+    
+    public Etage()
+    {
+        
+    }
+    
+    @Override
+    public void tick() {
+    }
     
 }
