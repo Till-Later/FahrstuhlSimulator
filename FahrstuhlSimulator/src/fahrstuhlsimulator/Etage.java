@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Lehmann
+ * @author mex
  */
 public class Etage implements tick
 {
@@ -17,10 +17,41 @@ public class Etage implements tick
     private ArrayList<Person> etagenPersonen;
     private ArrayList<Person> wartezimmerPersonen;
     
-    public Etage()
+    
+    public Etage(etagenNummer)
     {
-        
+      this.etagenNummer=etagenNummer; 
     }
+    
+    public int getEtagenNummer(){
+       return this.etagenNummer;
+    }
+    
+    public int getAnzahlDerPersonenImWartezimmer(){
+            return this.wartezimmerPersonen;
+    } 
+    
+    public int getAnzahlDerPersonInDerEtage(){
+            return this.etagenPersonen;
+    } 
+    
+    public void bewegePersonInWartezimmer(Person person){
+        this.etagenPersonen.add(person);
+                }
+    
+    public void bewegePersonInEtage(Person person){
+        this.wartezimmerPersonen.add(person);
+    }
+               
+    public void aktualisierePersonen(){       
+        for (int i=0; i < etagenPersonen.size(); i++) {
+             etagenPersonen.get(i).getAktuellenAufenthalt().verkleinereAufenthaltsdauer();
+        }
+        
+        
+        
+    
+    }  
     
     @Override
     public void tick() {
