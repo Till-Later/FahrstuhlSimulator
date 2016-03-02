@@ -243,7 +243,10 @@ public class Boxplot
      */
     public int getZufaelligenWert()
     {
+        //zufälliges Abteil des Boxplots wählen, aus dem der Zufallswert kommen soll
+        //Abteile: zwischen Minimum und unteres Quartil oder zwischen unteres Quartil und Median oder ...
         int abteil = (int) (Math.random()*4);
+        
         int untereGrenze,obereGrenze;
         if (abteil == 0)
         {
@@ -257,12 +260,13 @@ public class Boxplot
         {
             untereGrenze = this.median;
             obereGrenze  = this.oberesQuartil;
-        } else if (abteil == 3)
-        {
+        } else {
             untereGrenze = this.oberesQuartil;
             obereGrenze = this.maximum;
         }
+        int breiteDesAbteils = obereGrenze - untereGrenze;
         
+        return ((int) (Math.random() * breiteDesAbteils)) + untereGrenze;
     }
     
     /**
