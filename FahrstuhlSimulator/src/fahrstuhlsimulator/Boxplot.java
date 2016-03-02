@@ -2,8 +2,6 @@ package fahrstuhlsimulator;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
@@ -11,19 +9,17 @@ import javax.swing.JPanel;
  */
 public class Boxplot
 {
-    private final BoxplotGUI GUI;
-    
     private final int MINIMUM         = 0;
     private final int UNTERES_QUARTIL = 1;
     private final int MEDIAN          = 2;
     private final int OBERES_QUARTIL  = 3;
     private final int MAXIMUM         = 4;
     
-    private double minimum;
-    private double unteresQuartil;
-    private double median;
-    private double oberesQuartil;
-    private double maximum;
+    private int minimum;
+    private int unteresQuartil;
+    private int median;
+    private int oberesQuartil;
+    private int maximum;
     
     private double spannweite;
     
@@ -45,18 +41,16 @@ public class Boxplot
      * @param oq oberes Quartil: Grenze für obere 25% der Datenwerte
      * @param max Maximum: oberste Grenze des Boxplots
      */
-    public Boxplot(double min, double uq, double med, double oq, double max)
+    public Boxplot(int min, int uq, int med, int oq, int max)
     {
-        minimum         = min;
-        unteresQuartil  = uq;
-        median          = med;
-        oberesQuartil   = oq;
-        maximum         = max;
+        this.minimum         = min;
+        this.unteresQuartil  = uq;
+        this.median          = med;
+        this.oberesQuartil   = oq;
+        this.maximum         = max;
         
-        matrizen = new ArrayList<LineMatrix>();
+        this.matrizen = new ArrayList<LineMatrix>();
         updateMatrizen();
-        
-        GUI = new BoxplotGUI(this);
     }
     
     /**
@@ -151,67 +145,57 @@ public class Boxplot
      * Setzt einen neuen Wert für die Kenngröße "Minimum" des Boxplots.
      * @param min der neue Wert
      */
-    public void setMinimum(double min)
+    public void setMinimum(int min)
     {
-        System.out.println("Minimum neu: "+min);
         minimum = min;
         updateMatrizen();
-        GUI.repaint();
     }
     
     /**
      * Setzt einen neuen Wert für die Kenngröße "unteres Quartal" des Boxplots.
      * @param uq der neue Wert
      */
-    public void setUnteresQuartil(double uq)
+    public void setUnteresQuartil(int uq)
     {
-        System.out.println("UQ neu: "+uq);
         unteresQuartil = uq;
         updateMatrizen();
-        GUI.repaint();
     }
     
     /**
      * Setzt einen neuen Wert für die Kenngröße "Median" des Boxplots.
      * @param med der neue Wert
      */
-    public void setMedian(double med)
+    public void setMedian(int med)
     {
-        System.out.println("Median neu: "+med);
         median = med;
         updateMatrizen();
-        GUI.repaint();
     }
     
     /**
      * Setzt einen neuen Wert für die Kenngröße "oberes Quartil" des Boxplots.
      * @param oq der neue Wert
      */
-    public void setOberesQuartil(double oq)
+    public void setOberesQuartil(int oq)
     {
-        System.out.println("OQ neu: "+oq);
         oberesQuartil = oq;
         updateMatrizen();
-        GUI.repaint();
     }
     
     /**
      * Setzt einen neuen Wert für die Kenngröße "Maximum" des Boxplots.
      * @param max der neue Wert
      */
-    public void setMaximum(double max)
+    public void setMaximum(int max)
     {
-        System.out.println("Maximum neu: "+max);
         maximum = max;
         updateMatrizen();
-        GUI.repaint();
     }
     
     /**
      * Liefert den Wert für die Kenngröße "Minimum" des Boxplots.
      * @return der aktuelle Wert
      */
-    public double getMinimum()
+    public int getMinimum()
     {
         return minimum;
     }
@@ -220,7 +204,7 @@ public class Boxplot
      * Liefert den Wert für die Kenngröße "unteres Quartil" des Boxplots.
      * @return der aktuelle Wert
      */
-    public double getUnteresQuartil()
+    public int getUnteresQuartil()
     {
         return unteresQuartil;
     }
@@ -229,7 +213,7 @@ public class Boxplot
      * Liefert den Wert für die Kenngröße "Median" des Boxplots.
      * @return der aktuelle Wert
      */
-    public double getMedian()
+    public int getMedian()
     {
         return median;
     }
@@ -238,7 +222,7 @@ public class Boxplot
      * Liefert den Wert für die Kenngröße "oberes Quartil" des Boxplots.
      * @return der aktuelle Wert
      */
-    public double getOberesQuartil()
+    public int getOberesQuartil()
     {
         return oberesQuartil;
     }
@@ -247,20 +231,39 @@ public class Boxplot
      * Liefert den Wert für die Kenngröße "Maximum" des Boxplots.
      * @return der aktuelle Wert
      */
-    public double getMaximum()
+    public int getMaximum()
     {
         return maximum;
     }
     
     /**
-     * Liefert das JPanel mit dem Boxplot darauf.
-     * @return JPanel mit Boxplot
+     * Liefert einen zufälligen Wert, entsprechend der Wahrscheinlichkeiten,
+     * die der Boxplot repräsentiert.
+     * @return einen zufälligen Wert
      */
-    public JPanel getGraphicalUserInterface()
+    public int getZufaelligenWert()
     {
-        return GUI;
+        int abteil = (int) (Math.random()*4);
+        int untereGrenze,obereGrenze;
+        if (abteil == 0)
+        {
+            untereGrenze = this.minimum;
+            obereGrenze  = this.unteresQuartil;
+        } else if (abteil == 1)
+        {
+            untereGrenze = this.unteresQuartil;
+            obereGrenze  = this.median;
+        } else if (abteil == 2)
+        {
+            untereGrenze = this.median;
+            obereGrenze  = this.oberesQuartil;
+        } else if (abteil == 3)
+        {
+            untereGrenze = this.oberesQuartil;
+            obereGrenze = this.maximum;
+        }
+        
     }
-    
     
     /**
      * Eine LineMatrix enthält die x- und y-Werte einer Linie im Boxplot.
@@ -316,7 +319,7 @@ public class Boxplot
          * @return x-Wert
          */
         public int getX()
-        {System.out.println("x-wert: "+x);
+        {
             return x;
         }
         /**
@@ -343,17 +346,5 @@ public class Boxplot
         {
             return beweglich;
         }
-    }
-    
-    
-    public static void main(String[] args)
-    {
-        Boxplot boxplot = new Boxplot();
-        JFrame f = new JFrame();
-        f.setLayout(null);
-        f.add(boxplot.getGraphicalUserInterface());
-        f.setSize(500, 300);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
