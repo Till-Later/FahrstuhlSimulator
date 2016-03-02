@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * @author Lehmann
  */
 public class Person {
-   public int gewicht;
-   public ArrayList <Aufenthalt> aufenthalte = new ArrayList<>(); //das erste Element der Liste ist der aktuelle Aufenthalt
+   private int gewicht;
+   private ArrayList <Aufenthalt> aufenthalte = new ArrayList<>(); //das erste Element der Liste ist der aktuelle Aufenthalt
    
    public Person(int gewicht, ArrayList<Aufenthalt> aufenthalte){
        this.gewicht = gewicht;

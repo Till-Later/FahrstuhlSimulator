@@ -10,8 +10,8 @@ package fahrstuhlsimulator;
  * @author Lehmann
  */
 public class Aufenthalt {
-    public int etagennummer;
-    public long aufenthaltsdauer;
+    private int etagennummer;
+    private long aufenthaltsdauer;
 
     
     public int getEtagennummer(){
