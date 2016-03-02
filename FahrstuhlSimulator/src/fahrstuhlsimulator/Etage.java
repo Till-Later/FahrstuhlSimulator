@@ -9,6 +9,6 @@ package fahrstuhlsimulator;
  *
  * @author Lehmann
  */
-public class Etage {
+public class Etage implements tick {
     
 }

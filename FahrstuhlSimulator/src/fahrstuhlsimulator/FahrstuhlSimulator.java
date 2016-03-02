@@ -16,10 +16,12 @@ public class FahrstuhlSimulator {
     public static float speed = 1;
     public static Calendar uhrzeit = new GregorianCalendar(2000,1,1,8,0,0);
     public static Gebaeude gebaeude;
+    public static GrafischesInterface grafischesInterface;
     
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
         // TODO code application logic here
     }

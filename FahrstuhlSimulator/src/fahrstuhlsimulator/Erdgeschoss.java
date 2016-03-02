@@ -9,6 +9,6 @@ package fahrstuhlsimulator;
  *
  * @author Lehmann
  */
-public class Erdgeschoss extends Etage {
+public class Erdgeschoss extends Etage implements tick {
     
 }
