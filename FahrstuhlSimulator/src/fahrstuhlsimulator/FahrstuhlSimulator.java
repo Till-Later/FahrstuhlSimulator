@@ -21,6 +21,33 @@ public class FahrstuhlSimulator {
     /**
      * @param args the command line arguments
      */
+    public void setPlaystate(int playstate){
+        this.playstate = playstate;
+    }
+    
+    public int getPlaystate(){
+        return playstate;
+    }
+    
+    public void setSpeed(float speed){
+        this.speed = speed;
+    }
+    
+    public float getSpeed(){
+        return speed;
+    }
+    
+    public void setUhrzeit(Calendar uhrzeit){
+        this.uhrzeit = uhrzeit;
+    }
+    
+    public Calendar getUhrzeit(){
+        return uhrzeit;
+    }
+    
+    public void tick(){
+        
+    }
     
     public static void main(String[] args) {
         // TODO code application logic here
