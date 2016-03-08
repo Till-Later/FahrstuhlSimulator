@@ -40,10 +40,11 @@ public class Haupteingang
         int gewicht = this.gewichtsVerteilung.getZufaelligenWert();
         int anzahlAufenthalte = this.aufenthaltsVerteilung.getZufaelligenWert();
         ArrayList<Aufenthalt> aufenthalte = new ArrayList<Aufenthalt>();
-        for (int i=0; i<anzahlAufenthalte; i++)
+        for (int i=0; i<anzahlAufenthalte-1; i++)
         {
             aufenthalte.add(createAufenthalt());
         }
+        aufenthalte.add(new Aufenthalt(1,0));
         return new Person(gewicht, aufenthalte);
     }
     
