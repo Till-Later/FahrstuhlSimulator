@@ -54,7 +54,10 @@ public class Gebaeude implements tick {
     
     }
     
-    public void tick () {
-    
+    public void tick () {        
+        etagen.get(0).tick();
+        for (int i = 1; i < etagen.size();i++) {
+            etagen.get(i).tick();
+        }
     }
 }

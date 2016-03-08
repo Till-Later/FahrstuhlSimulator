@@ -68,6 +68,7 @@ public class Etage implements tick
     
     @Override
     public void tick() {
+        this.aktualisierePersonen();
     }
     
 }
