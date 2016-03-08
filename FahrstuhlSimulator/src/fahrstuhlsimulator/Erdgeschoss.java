@@ -20,6 +20,11 @@ public class Erdgeschoss extends Etage implements tick {
         haupteingang = new Haupteingang();
     }
     
+    public void pruefeObPersonenInsWartezimmerMuessen(){
+       ArrayList <Person> personen = new ArrayList<>();
+       personen.addAll(haupteingang.erschaffeNeuePersonen());
+   }
+    
     public void bewegeNeuePersonenInWartenzimmer(ArrayList<Person> personen){
         this.wartezimmerPersonen.addAll(personen);
     }
