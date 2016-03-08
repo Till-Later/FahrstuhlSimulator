@@ -5,10 +5,32 @@
  */
 package fahrstuhlsimulator;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lehmann
  */
 public class Erdgeschoss extends Etage implements tick {
+ 
+    private Haupteingang haupteingang;
+    
+    public Erdgeschoss () {
+        super(1);
+        haupteingang = new Haupteingang();
+    }
+    
+    public void bewegeNeuePersonenInWartenzimmer(ArrayList<Person> personen){
+        this.wartezimmerPersonen.addAll(personen);
+    }
+
+    public void bewegePersonInEtage(Person person){
+    
+    } 
+    
+    @Override
+    public void tick() {
+        this.bewegeNeuePersonenInWartenzimmer(haupteingang.erschaffeNeuePersonen());
+    }
     
 }
