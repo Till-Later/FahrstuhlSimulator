@@ -14,13 +14,25 @@ import java.util.ArrayList;
 public class FahrstuhlController implements tick {
     private ArrayList <Fahrstuhl> fahrstuehle = new ArrayList<>();
     
-    /*public boolean istBereitsAngefordert(int etagennummer){
-        return
+    public boolean istBereitsAngefordert(int etagennummer){
+        for (Fahrstuhl f : fahrstuehle) {
+            if (f.getZielRanking(etagennummer) == -1) {
+                return true;
+            }
+        }
+        return false;
     }
-    public void fordereFahrstuhlAn(int etagenummer){
-        
+    
+    
+    public void fordereFahrstuhlAn(int etagennummer){
+        if (!istBereitsAngefordert(etagennummer)) {
+            int besterFahrstuhlIndex = 0;
+            for (int i = 0; i < fahrstuehle.size(); i++) {
+                
+            }
+        }
     }
-    */
+    
     public void entferneFahrziel(){
         
     }

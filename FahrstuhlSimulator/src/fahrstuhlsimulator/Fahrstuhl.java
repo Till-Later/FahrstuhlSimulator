@@ -76,21 +76,102 @@ public class Fahrstuhl implements tick {
         return personen.size();
     }
        
-    public boolean kannRechtzeitigBremsen () {
+    public boolean kannRechtzeitigBremsen (int etagennnummer) {
         // Erst wenn die Simulation mit Geschwindigkeiten arbeitet, kann geprüft werden, ob der Fahrstuhl rechtzeitig bremsen könnte. 
         // Solange wird davon ausgegangen, dass er es nicht kann.
         return false;         
     }
     
     public void addNeuesZiel (int etagennummer) {
-        if (naechsteEtagen.size() == 0) {
-            naechsteEtagen.add(etagennummer);
+        if (getZielRanking(etagennummer) != -1) 
+            naechsteEtagen.add(getZielRanking(etagennummer), etagennummer);        
+    }
+    
+    public int getZielRanking (int etagennummer) {
+        // Wenn das Element sich schon in der Liste befindet, höre einfach auf.
+        if (naechsteEtagen.contains(etagennummer)) {
+            return -1;        
+        }
+        
+        // Wenn die Etagenliste leer ist, kann das Element einfach in die Liste eingefügt werden.
+        if (naechsteEtagen.isEmpty()) {            
+            return 0;
+        }
+        
+        // Wenn er rechtzeitig bremsen kann, füge es auf jeden Fall an den Anfang der Liste.
+        if (kannRechtzeitigBremsen(etagennummer)) {
+            return 0;
         } else {
-            if (naechsteEtagen.get(naechsteEtagen.size()-1) > etagennummer) {
-                
+            // Wenn die Etagenliste nur ein Element enthält und er nicht rechtzeitig bremsen kann, hänge die nächste Etage ans Ende ran.
+            if (naechsteEtagen.size() == 1) {
+                return naechsteEtagen.size();
+            }
+            
+            // Der Fahrstuhl fährt abwärts.
+            if (naechsteEtagen.get(0) > naechsteEtagen.get(1)) {
+                // Füge es in erste Hälfte der Liste ein.
+                if (etagennummer < naechsteEtagen.get(0)) {                    
+                    int i;
+                    for (i = 0; i < getIndexVonKleinstesElementDerListe(naechsteEtagen); i++) {
+                        if (etagennummer > naechsteEtagen.get(i+1)) {                            
+                            return i+1;
+                        }                        
+                    }
+                    return i+1;
+                } else if (etagennummer > naechsteEtagen.get(0)) {
+                    // Füge es in die zweite Hälfte der Liste ein.
+                    int i;
+                    for (i = getIndexVonKleinstesElementDerListe(naechsteEtagen)+1; i < naechsteEtagen.size(); i++) {
+                        if (naechsteEtagen.get(i) > etagennummer) {                            
+                            return i;
+                        }
+                    }
+                    return i;                    
+                }  // Der Fahrstuhl fährt aufwärts
+            } else if (naechsteEtagen.get(0) < naechsteEtagen.get(1)) {
+                // Füge es in erste Hälfte der Liste ein.
+                if (etagennummer < naechsteEtagen.get(0)) {                    
+                    int i;
+                    for (i = 0; i < getIndexVonGroesstesElementDerListe(naechsteEtagen); i++) {
+                        if (etagennummer > naechsteEtagen.get(i+1)) {                            
+                            return i+1;
+                        }                        
+                    }                    
+                    return i+1;
+                } else if (etagennummer > naechsteEtagen.get(0)) {
+                    // Füge es in die zweite Hälfte der Liste ein.
+                    int i;
+                    for (i = getIndexVonGroesstesElementDerListe(naechsteEtagen)+1; i < naechsteEtagen.size(); i++) {
+                        if (naechsteEtagen.get(i) < etagennummer) {
+                            return i;
+                        }
+                    }
+                    return i;                    
+                }                
+            }
+            
+        }
+        return -1;        
+    }
+    
+    public int getIndexVonKleinstesElementDerListe (ArrayList<Integer> liste) {
+        int index = 0;
+        for (int i = 1; i < liste.size(); i++) {
+            if (liste.get(i) < liste.get(index)) {
+                index = i;
             }
         }
+        return index;
+    }
     
+    public int getIndexVonGroesstesElementDerListe (ArrayList<Integer> liste) {
+        int index = 0;
+        for (int i = 1; i < liste.size(); i++) {
+            if (liste.get(i) > liste.get(index)) {
+                index = i;
+            }
+        }
+        return index;
     }
     
     public void tick () {
