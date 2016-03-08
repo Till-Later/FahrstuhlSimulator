@@ -27,29 +27,49 @@ public class FahrstuhlController implements tick {
     public void fordereFahrstuhlAn(int etagennummer){
         if (!istBereitsAngefordert(etagennummer)) {
             int besterFahrstuhlIndex = 0;
-            for (int i = 0; i < fahrstuehle.size(); i++) {
-                
+            int besterFahrstuhlRanking = fahrstuehle.get(0).getZielRanking(etagennummer);
+            for (int i = 1; i < fahrstuehle.size(); i++) {
+                if (besterFahrstuhlRanking > fahrstuehle.get(i).getZielRanking(etagennummer)) {
+                    besterFahrstuhlIndex = i;
+                    besterFahrstuhlRanking = fahrstuehle.get(i).getZielRanking(etagennummer);
+                }                 
+            }
+            fahrstuehle.get(besterFahrstuhlIndex).addNeuesZiel(etagennummer);
+        }
+    }       
+
+    
+    public ArrayList<Person> lassePersonenAussteigen(int etagennummer){
+        for (int i = 0; i < fahrstuehle.size(); i++) {
+            if (fahrstuehle.get(i).getZielEtage() == etagennummer) {
+                return fahrstuehle.get(i).getAussteigendePersonen();
             }
         }
+        return null;
     }
     
-    public void entferneFahrziel(){
+    
+    public ArrayList<Integer> getAngekommeneFahrstuehle() {
+        ArrayList<Integer> etagen = new ArrayList<Integer>();
+        for (int i = 0; i < fahrstuehle.size(); i++) {
+            if (fahrstuehle.get(i).getStehtGerade()) {
+                etagen.add(fahrstuehle.get(i).getZielEtage());
+            }
+        }
         
-    }
-    /*
-    public ArrayList<Person> lassePersonenAussteigen(int etagennummer){
-        return
+        return etagen;
     }
     
-    public void getAngekommeneFahrstuehle(){
-        return 
-    }
     
-    public boolean steigeEin(person){
-        return
-    }
+    public boolean steigeEin(Person person){
+        for (int i = 0; i < fahrstuehle.size(); i++) {
+            if (fahrstuehle.get(i).getZielEtage() == person.getAktuellenAufenthalt().getEtagennummer()) {
+                return fahrstuehle.get(i).steigeEin(person);
+            }
+        }
+        return false;
+    }    
     
-    */
     
     public void tick(){
         

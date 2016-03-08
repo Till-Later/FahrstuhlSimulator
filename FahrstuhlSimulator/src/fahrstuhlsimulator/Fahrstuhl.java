@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Fahrstuhl implements tick {
     private int restlicheFahrtzeit;
-    private float traglast;
+    private int traglast;
     private int zielEtage;
     private int vorherigeEtage;
     private ArrayList<Person> personen;
@@ -22,7 +22,7 @@ public class Fahrstuhl implements tick {
     private ArrayList<Integer> naechsteEtagen;
     
     
-    public Fahrstuhl (float traglast) {
+    public Fahrstuhl (int traglast) {
         this.traglast = traglast;
         personen = new ArrayList<Person>();
         naechsteEtagen = new ArrayList<Integer>();
@@ -74,6 +74,14 @@ public class Fahrstuhl implements tick {
     
     public int getAnzahlDerPersonenImFahrstuhl () {
         return personen.size();
+    }
+    
+    public boolean steigeEin (Person person) {
+        if (this.traglast >= (this.getAktuelleTraglast()+person.getGewicht())) {
+            personen.add(person);
+            return true;
+        }
+        return false;
     }
        
     public boolean kannRechtzeitigBremsen (int etagennnummer) {
