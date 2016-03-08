@@ -18,7 +18,11 @@ public class Etage implements tick
     private ArrayList<Person> wartezimmerPersonen;
     
     
+<<<<<<< HEAD
     public Etage(int etagenNummer)
+=======
+    public Etage()
+>>>>>>> origin/master
     {
       this.etagenNummer=etagenNummer; 
       etagenPersonen = new ArrayList<Person>();
@@ -47,6 +51,7 @@ public class Etage implements tick
                
     public void aktualisierePersonen(){       
         for (int i=0; i < etagenPersonen.size(); i++) {
+<<<<<<< HEAD
             if (etagenPersonen.get(i).getAktuellenAufenthalt().getAufenthaltsdauer() == 0) {
                etagenPersonen.get(i).loescheAktuellenAufenthalt();
                wartezimmerPersonen.add(etagenPersonen.get(i));
@@ -58,6 +63,23 @@ public class Etage implements tick
             }                         
         }                               
     }  
+=======
+             etagenPersonen.get(i).getAktuellenAufenthalt().verkleinereAufenthaltsdauer();
+        }
+    }
+    
+    public boolean istFahrstuhlBenoetigt(){
+        return !wartezimmerPersonen.isEmpty();
+    }
+
+    public void bewegePersonenInEtage(ArrayList<Person> personen){
+        this.wartezimmerPersonen.addAll(personen);
+    }
+          
+    public Person lassePersonInFahrstuhlEinsteigen(){
+            return wartezimmerPersonen.remove(0);
+    }
+>>>>>>> origin/master
     
     public boolean istFahrstuhleBenoetigt() {
         if (wartezimmerPersonen.size() > 0) {
