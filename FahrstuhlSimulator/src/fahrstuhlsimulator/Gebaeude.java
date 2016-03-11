@@ -54,10 +54,31 @@ public class Gebaeude implements tick {
     
     }
     
-    public void tick () {        
+    public void tick () {    
+        // Erdgeschoss neue Personen
         etagen.get(0).tick();
+        // Aufenthalte aktualisieren
         for (int i = 1; i < etagen.size();i++) {
             etagen.get(i).tick();
+        }
+        
+        // Personen verschieben / Fahrstühle anfordern
+        for (int i = 0; i < etagen.size();i++) {
+            if (etagen.get(i).istFahrstuhlBenoetigt()) {
+                fahrstuhlcontroller.fordereFahrstuhlAn(i+1);
+            }
+        }
+        
+        for (int i = 0; i < fahrstuhlcontroller.getAngekommeneFahrstuehle().size(); i++) {
+            int etage = fahrstuhlcontroller.getAngekommeneFahrstuehle().get(i);
+            etagen.get(etage-1).bewegePersonenInEtage(fahrstuhlcontroller.lassePersonenAussteigen(etage));
+            while (etagen.get(etage-1).getAnzahlDerPersonenImWartezimmer() > 0) {
+                Person person = etagen.get(etage-1).lassePersonInFahrstuhlEinsteigen();
+                if (!fahrstuhlcontroller.steigeEin(person)) {
+                    etagen.get(etage-1).bewegePersonInWartezimmer(person);
+                    return;
+                }
+            }
         }
     }
 }

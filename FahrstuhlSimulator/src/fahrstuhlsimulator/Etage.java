@@ -11,22 +11,15 @@ import java.util.ArrayList;
  *
  * @author mex
  */
-public class Etage implements tick
-{
+public class Etage implements tick {
     private int etagenNummer;
-    private ArrayList<Person> etagenPersonen;
-    private ArrayList<Person> wartezimmerPersonen;
+    protected ArrayList<Person> etagenPersonen;
+    protected ArrayList<Person> wartezimmerPersonen;
     
-    
-<<<<<<< HEAD
-    public Etage(int etagenNummer)
-=======
-    public Etage()
->>>>>>> origin/master
-    {
+    public Etage(int etagenNummer) {
       this.etagenNummer=etagenNummer; 
-      etagenPersonen = new ArrayList<Person>();
-      wartezimmerPersonen = new ArrayList<Person>();
+      this.etagenPersonen = new ArrayList<Person>();
+      this.wartezimmerPersonen = new ArrayList<Person>();
     }
     
     public int getEtagenNummer(){
@@ -51,7 +44,6 @@ public class Etage implements tick
                
     public void aktualisierePersonen(){       
         for (int i=0; i < etagenPersonen.size(); i++) {
-<<<<<<< HEAD
             if (etagenPersonen.get(i).getAktuellenAufenthalt().getAufenthaltsdauer() == 0) {
                etagenPersonen.get(i).loescheAktuellenAufenthalt();
                wartezimmerPersonen.add(etagenPersonen.get(i));
@@ -61,11 +53,7 @@ public class Etage implements tick
             } else {
                 etagenPersonen.get(i).getAktuellenAufenthalt().verkleinereAufenthaltsdauer();                
             }                         
-        }                               
-    }  
-=======
-             etagenPersonen.get(i).getAktuellenAufenthalt().verkleinereAufenthaltsdauer();
-        }
+        }                                 
     }
     
     public boolean istFahrstuhlBenoetigt(){
@@ -79,16 +67,7 @@ public class Etage implements tick
     public Person lassePersonInFahrstuhlEinsteigen(){
             return wartezimmerPersonen.remove(0);
     }
->>>>>>> origin/master
     
-    public boolean istFahrstuhleBenoetigt() {
-        if (wartezimmerPersonen.size() > 0) {
-            return true;
-        }
-        return false;
-    }
-    
-    @Override
     public void tick() {
         this.aktualisierePersonen();
     }
