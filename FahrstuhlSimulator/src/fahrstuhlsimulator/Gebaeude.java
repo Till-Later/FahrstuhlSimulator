@@ -80,5 +80,7 @@ public class Gebaeude implements tick {
                 }
             }
         }
+        
+        fahrstuhlcontroller.tick();
     }
 }

@@ -24,8 +24,10 @@ public class Fahrstuhl implements tick {
     
     public Fahrstuhl (int traglast) {
         this.traglast = traglast;
-        personen = new ArrayList<Person>();
-        naechsteEtagen = new ArrayList<Integer>();
+        this.personen = new ArrayList<Person>();
+        this.naechsteEtagen = new ArrayList<Integer>();
+        this.naechsteEtagen.add(1);
+        this.zielEtage = 1;
     } 
     
     public void setNeueZielEtage (int etagennummer) {
@@ -78,7 +80,8 @@ public class Fahrstuhl implements tick {
     
     public boolean steigeEin (Person person) {
         if (this.traglast >= (this.getAktuelleTraglast()+person.getGewicht())) {
-            personen.add(person);
+            this.personen.add(person);
+            this.addNeuesZiel(person.getAktuellenAufenthalt().getEtagennummer());
             return true;
         }
         return false;
@@ -182,7 +185,12 @@ public class Fahrstuhl implements tick {
         return index;
     }
     
-    public void tick () {
-        
+    public void tick () {        
+        if (this.restlicheFahrtzeit == 0 && this.naechsteEtagen.size() > 1) {
+            this.restlicheFahrtzeit = 10 + Math.abs(this.naechsteEtagen.get(0)-this.naechsteEtagen.get(0))*5;
+            this.naechsteEtagen.remove(0);            
+            this.zielEtage = this.naechsteEtagen.get(0);            
+        }
+        this.restlicheFahrtzeit--;
     }
 }

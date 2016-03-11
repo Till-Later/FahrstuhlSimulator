@@ -12,7 +12,13 @@ import java.util.ArrayList;
  * @author Lehmann
  */
 public class FahrstuhlController implements tick {
-    private ArrayList <Fahrstuhl> fahrstuehle = new ArrayList<>();
+    private ArrayList <Fahrstuhl> fahrstuehle;
+    
+    public FahrstuhlController () {
+        fahrstuehle = new ArrayList<Fahrstuhl>();
+        fahrstuehle.add(new Fahrstuhl(750));
+        fahrstuehle.add(new Fahrstuhl(1000));
+    }
     
     public boolean istBereitsAngefordert(int etagennummer){
         for (Fahrstuhl f : fahrstuehle) {
@@ -72,7 +78,9 @@ public class FahrstuhlController implements tick {
     
     
     public void tick(){
-        
+        for (int i = 0; i < fahrstuehle.size(); i++) {
+            fahrstuehle.get(i).tick();
+        }
     }
     
     
