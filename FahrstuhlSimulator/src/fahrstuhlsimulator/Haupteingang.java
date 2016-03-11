@@ -22,10 +22,12 @@ public class Haupteingang
     
     public Haupteingang()
     {
+        //System.out.println("Ich bin ein neuer Haupteingang");
         this.gewichtsVerteilung = new Boxplot(40, 70, 80, 90, 120);
         this.aufenthaltsVerteilung = new Boxplot(1, 2, 3, 4, 5);
-        this.aufenthaltsDauerVerteilung = new Boxplot(600, 3600, 14400, 28800, 36000);
-        this.zustromInPpM = 1;
+        
+        this.aufenthaltsDauerVerteilung = new Boxplot(150, 600, 1200, 1800, 600*3);
+        this.zustromInPpM = 15;
         
         sekunden = 0;
     }
@@ -40,11 +42,13 @@ public class Haupteingang
         int gewicht = this.gewichtsVerteilung.getZufaelligenWert();
         int anzahlAufenthalte = this.aufenthaltsVerteilung.getZufaelligenWert();
         ArrayList<Aufenthalt> aufenthalte = new ArrayList<Aufenthalt>();
-        for (int i=0; i<anzahlAufenthalte-1; i++)
+        for (int i=0; i<anzahlAufenthalte; i++)
         {
             aufenthalte.add(createAufenthalt());
         }
         aufenthalte.add(new Aufenthalt(1,0));
+        //System.out.println("Neue Person: " + aufenthalte.size() + "  Aufenthalte und " + gewicht + " kg.");
+        //System.out.println("Nächtes Ziel: " + aufenthalte.get(0).getEtagennummer());
         return new Person(gewicht, aufenthalte);
     }
     
@@ -55,7 +59,7 @@ public class Haupteingang
      */
     public Aufenthalt createAufenthalt()
     {
-        int etagenNummer = (int) (Math.random() * FahrstuhlSimulator.gebaeude.getEtagenzahl());
+        int etagenNummer = (int) (Math.random() * (FahrstuhlSimulator.gebaeude.getEtagenzahl()-1))+2;
         long aufenthaltsDauer = this.aufenthaltsDauerVerteilung.getZufaelligenWert();
         return new Aufenthalt(etagenNummer, aufenthaltsDauer);
     }

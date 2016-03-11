@@ -36,6 +36,8 @@ public class Erdgeschoss extends Etage implements tick {
     @Override
     public void tick() {
         this.bewegeNeuePersonenInWartenzimmer(haupteingang.erschaffeNeuePersonen());
+        System.out.println("##### Erdgeschoss:");
+        System.out.println("----- im Wartezimmer: " + this.wartezimmerPersonen.size());
     }
     
 }

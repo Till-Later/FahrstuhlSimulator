@@ -26,7 +26,6 @@ public class Fahrstuhl implements tick {
         this.traglast = traglast;
         this.personen = new ArrayList<Person>();
         this.naechsteEtagen = new ArrayList<Integer>();
-        this.naechsteEtagen.add(1);
         this.zielEtage = 1;
     } 
     
@@ -53,6 +52,7 @@ public class Fahrstuhl implements tick {
             }
         }
         
+        //System.out.println(aussteiger.size() + " Personen sind ausgestiegen.");
         return aussteiger;
     }
     
@@ -67,6 +67,7 @@ public class Fahrstuhl implements tick {
     }
     
     public boolean getStehtGerade () {
+        //System.out.println("Fahrstuhl steht gerade in Etage: " + this.zielEtage);
         if (restlicheFahrtzeit == 0) {
             return true;
         } else {
@@ -79,17 +80,17 @@ public class Fahrstuhl implements tick {
     }
     
     public boolean steigeEin (Person person) {
+        //System.out.println("Neue Person versucht einzusteigen");
         if (this.traglast >= (this.getAktuelleTraglast()+person.getGewicht())) {
             this.personen.add(person);
             this.addNeuesZiel(person.getAktuellenAufenthalt().getEtagennummer());
+            //System.out.println("Neue Person eingestiegen.");
             return true;
         }
         return false;
     }
        
     public boolean kannRechtzeitigBremsen (int etagennnummer) {
-        // Erst wenn die Simulation mit Geschwindigkeiten arbeitet, kann geprüft werden, ob der Fahrstuhl rechtzeitig bremsen könnte. 
-        // Solange wird davon ausgegangen, dass er es nicht kann.
         return false;         
     }
     
@@ -115,7 +116,7 @@ public class Fahrstuhl implements tick {
         } else {
             // Wenn die Etagenliste nur ein Element enthält und er nicht rechtzeitig bremsen kann, hänge die nächste Etage ans Ende ran.
             if (naechsteEtagen.size() == 1) {
-                return naechsteEtagen.size();
+                return naechsteEtagen.size();              
             }
             
             // Der Fahrstuhl fährt abwärts.
@@ -185,12 +186,28 @@ public class Fahrstuhl implements tick {
         return index;
     }
     
-    public void tick () {        
-        if (this.restlicheFahrtzeit == 0 && this.naechsteEtagen.size() > 1) {
-            this.restlicheFahrtzeit = 10 + Math.abs(this.naechsteEtagen.get(0)-this.naechsteEtagen.get(0))*5;
-            this.naechsteEtagen.remove(0);            
+    public void printNaechsteEtagen () {
+        System.out.print("[");
+        for (int i = 0; i < this.naechsteEtagen.size(); i++) {
+            System.out.print(this.naechsteEtagen.get(i) + ",");
+        }
+    }
+    
+    public void tick () {
+        System.out.println("##### Fahrstuhl (" + this.traglast + "kg): " + this.personen.size());
+        System.out.print("------ Restliche Fahrtzeit: " + this.restlicheFahrtzeit + " Sekunden \n------ Nächste Etagen: "); 
+        this.printNaechsteEtagen();
+        System.out.println("]");               
+                
+        if (this.restlicheFahrtzeit == 0 && !this.naechsteEtagen.isEmpty()) {
+            this.restlicheFahrtzeit = 10 + Math.abs(this.naechsteEtagen.get(0)-this.zielEtage)*5;
             this.zielEtage = this.naechsteEtagen.get(0);            
         }
-        this.restlicheFahrtzeit--;
+        if (this.restlicheFahrtzeit > 0) {
+            this.restlicheFahrtzeit--;
+        }
+        if (this.restlicheFahrtzeit == 0 && !this.naechsteEtagen.isEmpty()) {
+            this.naechsteEtagen.remove(0);            
+        }
     }
 }

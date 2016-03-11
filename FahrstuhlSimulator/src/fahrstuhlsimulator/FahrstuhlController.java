@@ -16,13 +16,15 @@ public class FahrstuhlController implements tick {
     
     public FahrstuhlController () {
         fahrstuehle = new ArrayList<Fahrstuhl>();
-        fahrstuehle.add(new Fahrstuhl(750));
         fahrstuehle.add(new Fahrstuhl(1000));
+        fahrstuehle.add(new Fahrstuhl(1000));
+        fahrstuehle.add(new Fahrstuhl(2000));
     }
     
     public boolean istBereitsAngefordert(int etagennummer){
         for (Fahrstuhl f : fahrstuehle) {
             if (f.getZielRanking(etagennummer) == -1) {
+                //System.out.println("Fahrstuhl: " + f.getZielRanking(etagennummer));
                 return true;
             }
         }
@@ -31,7 +33,8 @@ public class FahrstuhlController implements tick {
     
     
     public void fordereFahrstuhlAn(int etagennummer){
-        if (!istBereitsAngefordert(etagennummer)) {
+        //System.out.println("Fahrstuhl wird angefordert");
+        if (!this.istBereitsAngefordert(etagennummer)) {
             int besterFahrstuhlIndex = 0;
             int besterFahrstuhlRanking = fahrstuehle.get(0).getZielRanking(etagennummer);
             for (int i = 1; i < fahrstuehle.size(); i++) {
@@ -41,6 +44,8 @@ public class FahrstuhlController implements tick {
                 }                 
             }
             fahrstuehle.get(besterFahrstuhlIndex).addNeuesZiel(etagennummer);
+        } else {
+            //System.out.println("Fahrstuhl ist bereits angefordert");
         }
     }       
 
@@ -67,9 +72,9 @@ public class FahrstuhlController implements tick {
     }
     
     
-    public boolean steigeEin(Person person){
+    public boolean steigeEin(Person person, int etage){
         for (int i = 0; i < fahrstuehle.size(); i++) {
-            if (fahrstuehle.get(i).getZielEtage() == person.getAktuellenAufenthalt().getEtagennummer()) {
+            if (fahrstuehle.get(i).getZielEtage() == etage) {
                 return fahrstuehle.get(i).steigeEin(person);
             }
         }

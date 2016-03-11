@@ -11,12 +11,14 @@ import java.util.ArrayList;
  *
  * @author mex
  */
+
 public class Etage implements tick {
-    private int etagenNummer;
+    protected int etagenNummer;
     protected ArrayList<Person> etagenPersonen;
     protected ArrayList<Person> wartezimmerPersonen;
     
     public Etage(int etagenNummer) {
+      //System.out.println("Ich bin Etage: " + etagenNummer);
       this.etagenNummer=etagenNummer; 
       this.etagenPersonen = new ArrayList<Person>();
       this.wartezimmerPersonen = new ArrayList<Person>();
@@ -61,7 +63,7 @@ public class Etage implements tick {
     }
 
     public void bewegePersonenInEtage(ArrayList<Person> personen){
-        this.wartezimmerPersonen.addAll(personen);
+        this.etagenPersonen.addAll(personen);
     }
           
     public Person lassePersonInFahrstuhlEinsteigen(){
@@ -69,7 +71,11 @@ public class Etage implements tick {
     }
     
     public void tick() {
+        System.out.println("##### Etage "+ this.etagenNummer +":");
+        System.out.println("----- im Wartezimmer: " + this.wartezimmerPersonen.size());
+        System.out.println("----- in der Etage:   " + this.etagenPersonen.size());
         this.aktualisierePersonen();
+       
     }
     
 }

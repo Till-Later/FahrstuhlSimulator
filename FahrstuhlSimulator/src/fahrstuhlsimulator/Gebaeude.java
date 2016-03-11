@@ -24,6 +24,10 @@ public class Gebaeude implements tick {
        this.fahrstuhlcontroller = new FahrstuhlController();
        this.etagenhoehe = 3F;
        this.etagenZahl = 8;
+       this.etagen.add(new Erdgeschoss());
+       for (int i = 1; i < this.etagenZahl; i++) {
+           this.etagen.add(new Etage(i+1));
+       }
     }
     
     public void setEtagenhoehe (float etagenhoehe) {
@@ -69,18 +73,22 @@ public class Gebaeude implements tick {
             }
         }
         
+        System.out.println("----------------------------------");
+        fahrstuhlcontroller.tick();
+
+        
         for (int i = 0; i < fahrstuhlcontroller.getAngekommeneFahrstuehle().size(); i++) {
             int etage = fahrstuhlcontroller.getAngekommeneFahrstuehle().get(i);
+            //System.out.println("Ein Fahrstuhl ist angekommen in Etage " + (etage));
             etagen.get(etage-1).bewegePersonenInEtage(fahrstuhlcontroller.lassePersonenAussteigen(etage));
             while (etagen.get(etage-1).getAnzahlDerPersonenImWartezimmer() > 0) {
                 Person person = etagen.get(etage-1).lassePersonInFahrstuhlEinsteigen();
-                if (!fahrstuhlcontroller.steigeEin(person)) {
+                if (!fahrstuhlcontroller.steigeEin(person, etage)) {
                     etagen.get(etage-1).bewegePersonInWartezimmer(person);
                     return;
                 }
             }
         }
         
-        fahrstuhlcontroller.tick();
     }
 }
