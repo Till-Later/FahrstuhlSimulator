@@ -18,8 +18,7 @@ public class GrafischesInterface extends JFrame implements tick
     public GrafischesInterface()
     {
         super("Fahrstuhlsimulator");
-//        this.gebaude = new gui.Gebaeude(FahrstuhlSimulator.gebaeude.getFahrstuhlController().getAnzahlFahrstuehle(), FahrstuhlSimulator.gebaeude.getEtagenzahl());
-        this.gebaeude = new gui.Gebaeude(2, 5);
+        this.gebaeude = new gui.Gebaeude(FahrstuhlSimulator.gebaeude.fahrstuhlcontroller.fahrstuehle.size(), FahrstuhlSimulator.gebaeude.getEtagenzahl());
         this.add(gebaeude);
         this.pack();
         this.setVisible(true);
