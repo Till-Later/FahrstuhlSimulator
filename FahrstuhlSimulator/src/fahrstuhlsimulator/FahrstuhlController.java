@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Lehmann
  */
 public class FahrstuhlController implements tick {
-    private ArrayList <Fahrstuhl> fahrstuehle;
+    public ArrayList <Fahrstuhl> fahrstuehle;
     
     public FahrstuhlController () {
         fahrstuehle = new ArrayList<Fahrstuhl>();

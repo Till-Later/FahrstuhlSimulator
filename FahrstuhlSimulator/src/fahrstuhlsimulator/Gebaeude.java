@@ -14,8 +14,8 @@ import java.util.ArrayList;
  * @author Lehmann
  */
 public class Gebaeude implements tick {
-    private ArrayList<Etage> etagen;
-    private FahrstuhlController fahrstuhlcontroller;
+    public ArrayList<Etage> etagen;
+    public FahrstuhlController fahrstuhlcontroller;
     private float etagenhoehe;
     private int etagenZahl;
        
@@ -23,7 +23,7 @@ public class Gebaeude implements tick {
        this.etagen = new ArrayList<Etage>();
        this.fahrstuhlcontroller = new FahrstuhlController();
        this.etagenhoehe = 3F;
-       this.etagenZahl = 8;
+       this.etagenZahl = 5;
        this.etagen.add(new Erdgeschoss());
        for (int i = 1; i < this.etagenZahl; i++) {
            this.etagen.add(new Etage(i+1));

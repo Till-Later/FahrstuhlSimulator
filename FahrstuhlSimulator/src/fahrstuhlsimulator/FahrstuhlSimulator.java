@@ -47,10 +47,12 @@ public class FahrstuhlSimulator {
     
     public static void tick(){
         gebaeude.tick();
+        grafischesInterface.tick();
     }
     
     public static void main(String[] args) {
         gebaeude = new Gebaeude();
+        grafischesInterface = new GrafischesInterface();
         int i = 0;
         while (true) {
             i++;
