@@ -19,12 +19,17 @@ public class Erdgeschoss extends Etage implements tick {
         super(1);
         haupteingang = new Haupteingang();
     }
-    
+    /**
+     * Erschafft Personen, fügt sie in die Liste 'personen' ein.
+     */
     public void pruefeObPersonenInsWartezimmerMuessen(){
        ArrayList <Person> personen = new ArrayList<>();
        personen.addAll(haupteingang.erschaffeNeuePersonen());
    }
-    
+    /**
+     * @param personen 
+     * Fügt eine Liste aus Personen ins Wartezimmer ein
+     */
     public void bewegeNeuePersonenInWartenzimmer(ArrayList<Person> personen){
         this.wartezimmerPersonen.addAll(personen);
     }
@@ -32,7 +37,10 @@ public class Erdgeschoss extends Etage implements tick {
     public void bewegePersonInEtage(Person person){
     
     } 
-    
+    /**
+     * Überschreibt die Methode tick: erstellt Personen und fügt sie
+     * ins Wartezimmer ein
+     */
     @Override
     public void tick() {
         this.bewegeNeuePersonenInWartenzimmer(haupteingang.erschaffeNeuePersonen());

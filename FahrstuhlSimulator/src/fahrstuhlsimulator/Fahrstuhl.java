@@ -78,7 +78,15 @@ public class Fahrstuhl implements tick {
     public int getAnzahlDerPersonenImFahrstuhl () {
         return personen.size();
     }
-    
+    /**
+     * Prüft anhand des Gewichtes der Person, ob diese noch in den Fahrstuhl
+     * passt und lässt sie gegebenenfalls einsteigen. Die Zieletage der Person
+     * wird der Etagenliste zugefügt, die der Fahrstuhl noch ansteuern muss.
+     * Konnte die Person erfolgreich einsteigen, wird true zurückgegeben,
+     * ansonsten false.
+     * @param person
+     * @return 
+     */
     public boolean steigeEin (Person person) {
         //System.out.println("Neue Person versucht einzusteigen");
         if (this.traglast >= (this.getAktuelleTraglast()+person.getGewicht())) {
@@ -89,16 +97,29 @@ public class Fahrstuhl implements tick {
         }
         return false;
     }
-       
+    /**
+     * Prüft, ob der Fahrstuhl in der angegebenen Etage noch rechtzeitig anhalten kann.
+     * @param etagennnummer
+     * @return 
+     */   
     public boolean kannRechtzeitigBremsen (int etagennnummer) {
         return false;         
     }
-    
+    /**
+     * Fügt die eingegebene Etagennummer sortiert der Liste von Etagen zu,
+     * die der Fahrstuhl noch ansteuern muss.
+     * @param etagennummer 
+     */
     public void addNeuesZiel (int etagennummer) {
         if (getZielRanking(etagennummer) != -1) 
             naechsteEtagen.add(getZielRanking(etagennummer), etagennummer);        
     }
-    
+    /**
+     * Gibt für eine eingegebene etagennummer einen Wert zurück, der es der 
+     * Methode addNeuesZiel ermöglicht, diese korrekt einzusortieren.
+     * @param etagennummer
+     * @return 
+     */
     public int getZielRanking (int etagennummer) {
         // Wenn das Element sich schon in der Liste befindet, höre einfach auf.
         if (naechsteEtagen.contains(etagennummer)) {
@@ -193,6 +214,9 @@ public class Fahrstuhl implements tick {
         }
     }
     
+    /**
+     * Überschreibt die Methode tick; bestimmt die restliche Fahrzeit und Zieletage
+     */
     public void tick () {
         System.out.println("##### Fahrstuhl (" + this.traglast + "kg): " + this.personen.size());
         System.out.print("------ Restliche Fahrtzeit: " + this.restlicheFahrtzeit + " Sekunden \n------ Nächste Etagen: "); 

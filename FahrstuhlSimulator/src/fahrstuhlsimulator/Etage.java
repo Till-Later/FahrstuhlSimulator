@@ -36,14 +36,27 @@ public class Etage implements tick {
             return this.etagenPersonen.size();
     } 
     
+    /**
+     * Fügt die übergebene Person der Liste etagenPersonen hinzu
+     * @param person 
+     */
     public void bewegePersonInWartezimmer(Person person){
         this.etagenPersonen.add(person);
                 }
-    
+    /**
+     * Fügt die übergebene Person der Liste wartezimmerPersonen hinzu
+     * @param person 
+     */
     public void bewegePersonInEtage(Person person){
         this.wartezimmerPersonen.add(person);
     }
-               
+    
+    /**
+     * Personen, deren Aufenthaltsdauer in einer Etage vorbei ist, 
+     * werden aus dieser entfernt, löschen ihren Aufenthalt und 
+     * werden in dem Wartezimmer der jeweiligen Etage zugefügt.
+     * Die anderen verringern ihre Aufenthaltsdauer.
+     */
     public void aktualisierePersonen(){       
         for (int i=0; i < etagenPersonen.size(); i++) {
             if (etagenPersonen.get(i).getAktuellenAufenthalt().getAufenthaltsdauer() == 0) {
@@ -57,6 +70,7 @@ public class Etage implements tick {
             }                         
         }                                 
     }
+    
     
     public boolean istFahrstuhlBenoetigt(){
         return !wartezimmerPersonen.isEmpty();

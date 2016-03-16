@@ -30,7 +30,9 @@ public class Aufenthalt {
     public void setAufenthaltsdauer(long aufenthaltsdauer){
         aufenthaltsdauer = this.aufenthaltsdauer;
     }
-    
+    /**
+     * verkleinert die Aufenthaltsdauer um 1
+     */
     public void verkleinereAufenthaltsdauer(){
         aufenthaltsdauer = aufenthaltsdauer - 1;
         
