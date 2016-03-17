@@ -49,7 +49,7 @@ public class FahrstuhlSimulator {
         gebaeude.tick();
         grafischesInterface.tick();
     }
-    
+  
     public static void main(String[] args) {
         gebaeude = new Gebaeude();
         grafischesInterface = new GrafischesInterface();

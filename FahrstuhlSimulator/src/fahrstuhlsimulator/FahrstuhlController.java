@@ -20,7 +20,9 @@ public class FahrstuhlController implements tick {
         fahrstuehle.add(new Fahrstuhl(1000));
         fahrstuehle.add(new Fahrstuhl(2000));
     }
-    
+    /**
+     * Prüft ob Fahrstuhl gerade angefordert wird
+     */
     public boolean istBereitsAngefordert(int etagennummer){
         for (Fahrstuhl f : fahrstuehle) {
             if (f.getZielRanking(etagennummer) == -1) {
@@ -31,7 +33,9 @@ public class FahrstuhlController implements tick {
         return false;
     }
     
-    
+    /**
+     * freier Fahrstuhl ohne Auftrag kann angefordet werden und bekommt neues Ziel
+     */
     public void fordereFahrstuhlAn(int etagennummer){
         //System.out.println("Fahrstuhl wird angefordert");
         if (!this.istBereitsAngefordert(etagennummer)) {
@@ -49,7 +53,9 @@ public class FahrstuhlController implements tick {
         }
     }       
 
-    
+    /**
+     * wenn der Fahrstuhl seie Zieletage reicht hat können die Personen aussteigen
+     */
     public ArrayList<Person> lassePersonenAussteigen(int etagennummer){
         for (int i = 0; i < fahrstuehle.size(); i++) {
             if (fahrstuehle.get(i).getZielEtage() == etagennummer) {
@@ -71,7 +77,9 @@ public class FahrstuhlController implements tick {
         return etagen;
     }
     
-    
+    /**
+     * lässt Personen in Fahrstuhl mit gleicher Etage einsteigen
+     */
     public boolean steigeEin(Person person, int etage){
         for (int i = 0; i < fahrstuehle.size(); i++) {
             if (fahrstuehle.get(i).getZielEtage() == etage) {

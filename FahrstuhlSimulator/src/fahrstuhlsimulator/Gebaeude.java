@@ -18,7 +18,10 @@ public class Gebaeude implements tick {
     public FahrstuhlController fahrstuhlcontroller;
     private float etagenhoehe;
     private int etagenZahl;
-       
+    
+/**
+ * Gebäude initialisiert Etage und legt die Hohe und Anzahl fest
+ */
     public Gebaeude () {
        this.etagen = new ArrayList<Etage>();
        this.fahrstuhlcontroller = new FahrstuhlController();
@@ -54,6 +57,9 @@ public class Gebaeude implements tick {
         return this.etagenZahl;
     }
     
+    /**
+     * noch geplantes Szenario
+     */
     public void starteNotraeumung () {
     
     }

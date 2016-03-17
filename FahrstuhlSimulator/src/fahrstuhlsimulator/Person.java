@@ -31,7 +31,9 @@ public class Person {
    public void setAktuellenAufenthalt(Aufenthalt aufenthalt){
        aufenthalte.set(0,aufenthalt);
    }
-   
+   /** 
+    * Aktuelle Aufenthalt der Person wird gelöscht
+    */
    public void loescheAktuellenAufenthalt(){
        aufenthalte.remove(0);
    }
