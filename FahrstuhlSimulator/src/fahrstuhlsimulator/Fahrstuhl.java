@@ -110,8 +110,8 @@ public class Fahrstuhl implements tick {
      * die der Fahrstuhl noch ansteuern muss.
      * @param etagennummer 
      */
-    public void addNeuesZiel (int etagennummer) {
-        if (getZielRanking(etagennummer) != -1) 
+    public void addNeuesZiel (int etagennummer) {        
+        if (getZielRanking(etagennummer) != -1 && etagennummer != this.zielEtage) 
             naechsteEtagen.add(getZielRanking(etagennummer), etagennummer);        
     }
     /**
