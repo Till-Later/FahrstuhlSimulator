@@ -4,11 +4,11 @@ import fahrstuhlsimulator.Daten;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -51,6 +51,8 @@ public class Gebaeude extends JPanel implements Runnable, fahrstuhlsimulator.tic
     
     public Gebaeude(int anzahlFahrstuehle, int anzahlEtagen)
     {
+        this.setLayout(null);
+        
         this.anzahlFahrstuehle = anzahlFahrstuehle;
         this.anzahlEtagen = anzahlEtagen;
         
@@ -93,12 +95,32 @@ public class Gebaeude extends JPanel implements Runnable, fahrstuhlsimulator.tic
         }
         for (int i=0;i<this.anzahlFahrstuehle;i++)
         {
-            JLabel a= new JLabel("0");
-            a.setFont(a.getFont().deriveFont(30f));
+            JLabel a = new JLabel("0");
             this.personenAnzahlLabels.put("fahrstuhl"+i, a);
             this.add(a);
         }
-        this.setLayout(null);
+        
+        this.add(playPause = new JButton(new ImageIcon("img/play.png")));
+        playPause.addActionListener(new ActionListener(){
+            boolean istSimulationPausiert = true;
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                istSimulationPausiert = !istSimulationPausiert;
+                if (istSimulationPausiert)
+                {
+                    playPause.setIcon(new ImageIcon("img/play.png"));
+                    fahrstuhlsimulator.FahrstuhlSimulator.setPlaystate(1);
+                } else {
+                    playPause.setIcon(new ImageIcon("img/pause.png"));
+                    fahrstuhlsimulator.FahrstuhlSimulator.setPlaystate(2);
+                }
+                playPause.setBorder(null);
+            }
+        });
+        playPause.setBounds(15, 15, 30, 30);
+        playPause.setBorder(null);
+        playPause.setFocusable(false);
     }
     @Override
     public void paintComponent(Graphics g)
@@ -143,22 +165,27 @@ public class Gebaeude extends JPanel implements Runnable, fahrstuhlsimulator.tic
         }
         
         //Fahrstuhlschächte zeichnen
-        int a=0;
         for (int pos : fahrstuhlPositionen)
         {
             g.drawLine(pos, gebaeudeObenYPos, pos, gebaeudeObenYPos+hoehe);
             g.drawLine(pos+FAHRSTUHL_BREITE, gebaeudeObenYPos, pos+FAHRSTUHL_BREITE, gebaeudeObenYPos+hoehe);
-            this.personenAnzahlLabels.get("fahrstuhl"+a).setBounds(pos, aktEtageYPos-ETAGEN_HOEHE, 100, 40);
-            a++;
+        }
+        
+        //Fahrstühle zeichnen (Zahl der Passagiere)
+        for (int i=0;i<this.anzahlFahrstuehle;i++)
+        {
+            int x = this.fahrstuhlPositionen[i];
+            int y = this.GEBAEUDE_RAND_ABSTAND_NORD+(this.ETAGEN_HOEHE*(this.anzahlEtagen-Daten.getEtageVonFahrstuhl(i)+1));
+            this.personenAnzahlLabels.get("fahrstuhl"+i).setBounds(x+25, y+20, 100, 60);
         }
         
         //Bilder laden
-        try {
-            g.drawImage(ImageIO.read(new File("img/play.png")), 15, 15, null);
-            g.drawImage(ImageIO.read(new File("img/pause.png")), 45, 15, null);
-            g.drawImage(ImageIO.read(new File("img/stop.png")), 75, 15, null);
-            g.drawImage(ImageIO.read(new File("img/einstellungen.png")), 105, 15, null);
-        } catch (IOException ex) {System.out.println("aa");ex.printStackTrace();}
+//        try {
+//            g.drawImage(ImageIO.read(new File("img/play.png")), 15, 15, null);
+//            g.drawImage(ImageIO.read(new File("img/pause.png")), 45, 15, null);
+//            g.drawImage(ImageIO.read(new File("img/stop.png")), 75, 15, null);
+//            g.drawImage(ImageIO.read(new File("img/einstellungen.png")), 105, 15, null);
+//        } catch (IOException ex) {System.out.println("aa");ex.printStackTrace();}
     }
 
     @Override
@@ -186,7 +213,7 @@ public class Gebaeude extends JPanel implements Runnable, fahrstuhlsimulator.tic
         }
         for (int i=0;i<this.anzahlFahrstuehle;i++)
         {
-            this.personenAnzahlLabels.get("fahrstuhl"+i).setText(""+Daten.getAnzahlPersonenInFahrstuhl(i+1));
+            this.personenAnzahlLabels.get("fahrstuhl"+i).setText("<html><body><p style='font-size: 20px'>"+Daten.getAnzahlPersonenInFahrstuhl(i)+"</p><br>"+Daten.getFahrzeitVonFahrstuhl(i)+" s");
         }
         repaint();
     }
