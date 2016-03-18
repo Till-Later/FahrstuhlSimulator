@@ -18,7 +18,7 @@ public class Person {
    public Person(int gewicht, ArrayList<Aufenthalt> aufenthalte){
        this.gewicht = gewicht;
        this.aufenthalte = aufenthalte;
-       System.out.println("Neue Person mit erster Aufenthalt:" + aufenthalte.get(0).getEtagennummer());
+       //System.out.println("Neue Person mit erster Aufenthalt:" + aufenthalte.get(0).getEtagennummer());
    }
    
    public int getGewicht(){

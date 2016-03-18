@@ -27,7 +27,7 @@ public class Haupteingang
         this.aufenthaltsVerteilung = new Boxplot(1, 2, 3, 4, 5);
         
         this.aufenthaltsDauerVerteilung = new Boxplot(150, 600, 1200, 1800, 600*3);
-        this.zustromInPpM = 15;
+        this.zustromInPpM = 45;
         
         sekunden = 0;
     }

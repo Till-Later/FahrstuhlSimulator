@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 public class FahrstuhlSimulator {
     
     public static int playstate = 0;
-    public static float speed = 1;
+    public static float speed = 15;
     public static Calendar uhrzeit = new GregorianCalendar(2000,1,1,8,0,0);
     public static Gebaeude gebaeude;
     public static GrafischesInterface grafischesInterface;
