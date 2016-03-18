@@ -5,6 +5,8 @@
  */
 package fahrstuhlsimulator;
 
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import javax.swing.JFrame;
 
 /**
@@ -18,9 +20,21 @@ public class GrafischesInterface extends JFrame implements tick
     public GrafischesInterface()
     {
         super("Fahrstuhlsimulator");
+        this.setLayout(null);
         this.gebaeude = new gui.Gebaeude(FahrstuhlSimulator.gebaeude.fahrstuhlcontroller.fahrstuehle.size(), FahrstuhlSimulator.gebaeude.getEtagenzahl());
+        this.gebaeude.setBounds(0, 0, this.gebaeude.getPreferredSize().width, this.gebaeude.getPreferredSize().height);
         this.add(gebaeude);
-        this.pack();
+        
+        this.addMouseWheelListener(new MouseWheelListener(){
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e)
+            {
+                gebaeude.setLocation(0, gebaeude.getY()+e.getWheelRotation());
+            }
+        });
+        
+        this.setSize(this.gebaeude.getPreferredSize());
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
     
