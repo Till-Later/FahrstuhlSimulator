@@ -64,4 +64,11 @@ public class Daten
                 return f.getZielEtage();
         return -1;
     }
+    public static int getFahrzeitVonFahrstuhl(int fahrstuhl)
+    {
+        for (Fahrstuhl f : FahrstuhlSimulator.gebaeude.fahrstuhlcontroller.fahrstuehle)
+            if (FahrstuhlSimulator.gebaeude.fahrstuhlcontroller.fahrstuehle.indexOf(f) == fahrstuhl)
+                return f.getRestlicheFahrtzeit();
+        return -1;
+    }
 }

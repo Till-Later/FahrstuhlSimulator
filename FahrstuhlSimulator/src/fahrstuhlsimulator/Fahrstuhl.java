@@ -214,6 +214,11 @@ public class Fahrstuhl implements tick {
         }
     }
     
+    public int getRestlicheFahrtzeit()
+    {
+        return this.restlicheFahrtzeit;
+    }
+    
     /**
      * Überschreibt die Methode tick; bestimmt die restliche Fahrzeit und Zieletage
      */
